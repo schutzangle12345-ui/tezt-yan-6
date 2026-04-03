@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Researchily | AI-Powered R&D Chat for Innovation Teams</title>
+    <meta name="description" content="Researchily is an AI chat built specifically for R&D teams to summarize scientific papers, search patents, and design experiments without hallucinations.">
+    
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            /* Brand Colors */
+            --color-primary: #D92128;
+            --color-primary-dark: #b81b21;
+            --color-accent: #FFFFFF;
+            
+            /* UI Palette - Dark Minimal */
+            --color-background: #000000;
+            --color-surface: #0a0a0a;
+            --color-text: #FFFFFF;
+            --color-text-muted: #888888;
+            --color-border: #1a1a1a;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            /* Spacing */
+            --section-padding: 140px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--color-text-muted);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: var(--section-padding) 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-background);
+        }
+
+        .btn-primary:hover {
+            background-color: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--color-text);
+            border: 1px solid transparent;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--color-border);
+            background-color: var(--color-surface);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 200px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            max-width: 900px;
+            margin: 0 auto 24px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .secondary-link {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border 0.2s ease;
+        }
+
+        .secondary-link:hover {
+            border-bottom-color: var(--color-text-muted);
+        }
+
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 48px;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #333;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-primary);
+            border-radius: 4px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* How It Works Section */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .step h3 {
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            padding: 32px;
+            border-left: 1px solid var(--color-border);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: var(--color-text);
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .author-role {
+            font-size: 12px;
+            color: var(--color-text-muted);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background-color: var(--color-surface);
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 16px;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--color-text);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-text-muted);
+            transition: fill 0.2s ease;
+        }
+
+        .social-links svg:hover {
+            fill: var(--color-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            :root {
+                --section-padding: 80px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .steps-container, .testimonials-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+  <base href="/researchily/" />
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo-tezt-yan-6.png" alt="tezt-yan-6 logo" style="height:40px;object-fit:contain">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="auth.html">Sign In</a>
+                <a href="https://test.test" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero container">
+        <span class="badge">Engineered for R&D</span>
+        <h1>Stop skimming. <br>Start discovering.</h1>
+        <p>Researchily is the AI partner built for innovation labs. Review literature, search patents, and map experiment risks with zero hallucinations.</p>
+        <div class="hero-actions">
+            <a href="https://test.test" class="btn btn-primary">Start Researching Now</a>
+            <a href="about.html" class="secondary-link">How we handle IP &rarr;</a>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Built for the high-stakes of innovation.</h2>
+            <p>Why generic chatbots fail your research pipeline.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h3>Literature Mastery</h3>
+                <p>Instantly summarize complex technical papers with verified citations. No more manual skimming or lost context.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <h3>White Space Identification</h3>
+                <p>Scan patent databases and technical journals to find unmet needs and avoid reinventing the wheel.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <h3>Risk Mapping</h3>
+                <p>Our AI partners with you to surface experimental risks and open questions before you spend your budget.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="background-color: var(--color-background);">
+        <div class="section-title">
+            <h2>From Paper to Project</h2>
+            <p>Three steps to accelerate your development cycle.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <span class="step-number">01</span>
+                <h3>Upload Your Universe</h3>
+                <p>Connect Researchily to your internal document stores, ELNs, or scientific databases securely.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">02</span>
+                <h3>Deep Dive Interaction</h3>
+                <p>Ask technical questions and receive structured summaries, method comparisons, and citation-backed insights.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">03</span>
+                <h3>Export Action Plans</h3>
+                <p>Convert your research findings directly into experiment plans or technical documentation in seconds.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Trusted by Lab Leaders</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Researchily cut our literature review time by 60%. We found a crucial patent conflict in days that usually takes weeks."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Dr. Helena Vance</span>
+                    <span class="author-role">Head of R&D, Biome-Tech</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The hallucination-free output is a game changer. We can finally trust AI-generated summaries for experimental design."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Markus Chen</span>
+                    <span class="author-role">CTO, Vertex Materials</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"It’s like having a senior research assistant who has read every paper ever published in our field."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Sarah Jenkins</span>
+                    <span class="author-role">Innovation Lab Director</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to lead the next breakthrough?</h2>
+            <p style="margin-bottom: 40px; font-size: 18px;">Join the innovation labs using Researchily to design better studies and protect their IP.</p>
+            <a href="https://test.test" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">Get Started with Researchily</a>
+        </div>
+    </section>
+
+    <footer class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="logo-tezt-yan-6.png" alt="tezt-yan-6 logo" style="height:32px;object-fit:contain">
+                <p>The AI partner for modern R&D and innovation teams.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://test.test">Product Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Security</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">IP Protection</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 tezt-yan-6. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
