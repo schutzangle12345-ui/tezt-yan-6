@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Researchily by tezt-yan-6</title>
+    <meta name="description" content="Learn about tezt-yan-6 and our mission to empower R&D teams with citation-backed AI research assistants.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+        :root {
+            --color-primary: #D92128;
+            --color-primary-dark: #B81C22; /* 15% darker */
+            --color-accent: #FFFFFF;
+            --color-background: #0A0A0A;
+            --color-surface: #121212;
+            --color-text: #FFFFFF;
+            --color-text-muted: #A0A0A0;
+            --color-border: #1F1F1F;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --container-width: 1100px;
+            --section-padding: 140px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            letter-spacing: -0.03em;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        p {
+            color: var(--color-text-muted);
+            font-size: 1.125rem;
+        }
+
+        /* Layout */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: var(--section-padding) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            height: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-background);
+        }
+
+        .btn-primary:hover {
+            background-color: #E6E6E6;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-text-muted);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: calc(var(--section-padding) + 40px);
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            line-height: 1.4;
+        }
+
+        /* Content Blocks */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .grid-header {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 3rem;
+            border-radius: 4px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .card p {
+            font-size: 1rem;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background-color: var(--color-border);
+            border: 1px solid var(--color-border);
+            margin-top: 4rem;
+        }
+
+        .value-item {
+            background-color: var(--color-background);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .value-item h4 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--color-surface);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0;
+            background-color: var(--color-background);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-text-muted);
+            transition: fill 0.2s ease;
+        }
+
+        .social-icons a:hover svg {
+            fill: var(--color-primary);
+        }
+
+        .copyright {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 80px;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .grid, .value-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+  <base href="/researchily/" />
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html">
+                <img src="logo-tezt-yan-6.png" alt="tezt-yan-6 logo" style="height:40px;object-fit:contain">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" style="color: var(--color-text);">About</a>
+                <a href="auth.html">Sign In</a>
+                <a href="index.html#get-started" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="section hero">
+        <div class="container">
+            <p style="color: var(--color-primary); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">Our Mission</p>
+            <h1>Research should move at the speed of thought.</h1>
+            <p>At tezt-yan-6, we build Researchily — the AI-native workspace designed specifically for the rigorous demands of R&D labs and innovation teams.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <h2 class="grid-header">Why we exist.</h2>
+                    <p>Generic AI tools are built for the general public. They "hallucinate" technical details, lack scientific depth, and often ignore the critical need for verifiable citations. In an R&D environment, a single misdirected experiment can waste millions in budget and months of human effort.</p>
+                    <br>
+                    <p>We saw researchers spending more time skimming thousands of papers and manually organizing experiment plans than actually innovating. We decided to bridge the gap between high-level intelligence and scientific accuracy.</p>
+                </div>
+                <div class="card">
+                    <h3>The Researchily Difference</h3>
+                    <p>Unlike standard chatbots, Researchily is grounded in peer-reviewed literature and patent databases. We don't just provide answers; we provide a transparent audit trail of where those answers came from, ensuring your intellectual property and experimental designs are built on a bedrock of truth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Core Values</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;">The principles that guide every feature we ship and every model we train.</p>
+            
+            <div class="value-grid">
+                <div class="value-item">
+                    <h4>Accuracy First</h4>
+                    <p>Innovation cannot thrive on hallucinations. Every claim must be cited, every source must be verified.</p>
+                </div>
+                <div class="value-item">
+                    <h4>IP Integrity</h4>
+                    <p>Your data is your most valuable asset. We treat security not as a feature, but as the foundation of our architecture.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Human-AI Synergy</h4>
+                    <p>We don't replace researchers; we augment them. Our tool handles the grunt work so teams can focus on creative breakthroughs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <div class="card">
+                    <h3>Future of R&D</h3>
+                    <p>By 2028, we believe the majority of R&D cycles will be compressed by 40% through AI orchestration. We are committed to being the platform that facilitates this leap for Pharmaceuticals, Materials Science, and Hardware Engineering teams globally.</p>
+                </div>
+                <div>
+                    <h2 class="grid-header">Built for Teams.</h2>
+                    <p>From CTOs looking for better innovation lab performance to managers needing to onboard researchers to new project domains quickly—Researchily is the unified workspace that keeps context alive across shifts and departments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <h2>Accelerate your pipeline today.</h2>
+            <p style="margin-bottom: 3rem;">Join leading R&D teams who use Researchily to design better experiments.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="auth.html" class="btn btn-primary">Start Researching</a>
+                <a href="index.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo-tezt-yan-6.png" alt="tezt-yan-6 logo" style="height:32px;object-fit:contain;margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.9rem;">Building the future of R&D through precise, citation-backed AI intelligence. Based on the Researchily framework.</p>
+                    <div class="social-icons">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html">R&D GPT Overview</a></li>
+                        <li><a href="index.html#features">Lit Review Tool</a></li>
+                        <li><a href="index.html#pricing">Pricing Plans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Mission</a></li>
+                        <li><a href="auth.html">Sign In</a></li>
+                        <li><a href="index.html#compliance">IP & Safety</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 tezt-yan-6. All rights reserved. Precision intelligence for innovation teams.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
